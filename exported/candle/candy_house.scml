@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="b5">
+    <folder id="0" name="candy_house">
+        <file id="0" name="candy_house/4.png" width="100" height="100" pivot_x="0" pivot_y="1"/>
+        <file id="1" name="candy_house/1.png" width="1000" height="1000" pivot_x="0.503887" pivot_y="0.108978"/>
+        <file id="2" name="candy_house/2.png" width="1000" height="1000" pivot_x="0.503887" pivot_y="0.108978"/>
+        <file id="3" name="candy_house/3.png" width="1000" height="1007" pivot_x="0.513619" pivot_y="0.131274"/>
+    </folder>
+    <entity id="0" name="entrance">
+        <animation id="0" name="hit" length="480">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="1_001" folder="0" file="1" abs_x="0" abs_y="0" abs_pivot_x="0.503887" abs_pivot_y="0.108978" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+                <key id="1" time="62">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                </key>
+                <key id="2" time="147">
+                    <object_ref id="0" timeline="0" key="2" z_index="0"/>
+                </key>
+                <key id="3" time="240">
+                    <object_ref id="0" timeline="0" key="3" z_index="0"/>
+                </key>
+                <key id="4" time="336">
+                    <object_ref id="0" timeline="0" key="4" z_index="0"/>
+                </key>
+                <key id="5" time="409">
+                    <object_ref id="0" timeline="0" key="5" z_index="0"/>
+                </key>
+                <key id="6" time="481">
+                    <object_ref id="0" timeline="0" key="6" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="1_001">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" angle="0"/>
+                </key>
+                <key id="1" time="62">
+                    <object folder="0" file="1" angle="0"/>
+                </key>
+                <key id="2" time="147" spin="-1">
+                    <object folder="0" file="1" angle="1"/>
+                </key>
+                <key id="3" time="240" spin="-1">
+                    <object folder="0" file="1" angle="0"/>
+                </key>
+                <key id="4" time="336">
+                    <object folder="0" file="1" angle="359"/>
+                </key>
+                <key id="5" time="409">
+                    <object folder="0" file="1" angle="359.991803"/>
+                </key>
+                <key id="6" time="481" spin="0">
+                    <object folder="0" file="1" angle="0"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="1" name="idle" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="1" folder="0" file="1" abs_x="0" abs_y="0" abs_pivot_x="0.503887" abs_pivot_y="0.108978" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="1">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" angle="0"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="2" name="door_closing" length="400">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="1_000" folder="0" file="1" abs_x="0" abs_y="0" abs_pivot_x="0.503887" abs_pivot_y="0.108978" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+                <key id="1" time="78">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                </key>
+                <key id="2" time="200">
+                    <object_ref id="0" timeline="0" key="2" z_index="0"/>
+                </key>
+                <key id="3" time="359">
+                    <object_ref id="0" timeline="0" key="3" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="1_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" angle="0"/>
+                </key>
+                <key id="1" time="78" spin="0">
+                    <object folder="0" file="2" angle="0"/>
+                </key>
+                <key id="2" time="200" spin="0">
+                    <object folder="0" file="1" angle="0"/>
+                </key>
+                <key id="3" time="359" spin="0">
+                    <object folder="0" file="1" angle="0"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+    <entity id="1" name="exit">
+        <animation id="0" name="idle" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="3" folder="0" file="3" abs_x="0" abs_y="0" abs_pivot_x="0.513619" abs_pivot_y="0.131274" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="3">
+                <key id="0" spin="0">
+                    <object folder="0" file="3" angle="0"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="1" name="door_closing" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="3" folder="0" file="3" abs_x="0" abs_y="0" abs_pivot_x="0.513619" abs_pivot_y="0.131274" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="3">
+                <key id="0" spin="0">
+                    <object folder="0" file="3" angle="0"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="2" name="hit" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="3" folder="0" file="3" abs_x="0" abs_y="0" abs_pivot_x="0.513619" abs_pivot_y="0.131274" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="3">
+                <key id="0" spin="0">
+                    <object folder="0" file="3" angle="0"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+</spriter_data>

@@ -391,9 +391,9 @@ local function SimulateSpawnerEventsForPlayer(ent, event)
 end
 local function SetBasementBuilder(inst, ent, enable)
 	if enable then
-		ent:AddTag("garden_member")
+		-- ent:AddTag("garden_member")
 	else
-		ent:RemoveTag("garden_member")
+		-- ent:RemoveTag("garden_member")
 	end
 end
 local function OnBuilderPrototyperChanged(self, machine)
@@ -709,11 +709,11 @@ local function OnLoad(inst, data, newents)
 	local map_width, map_height = TheWorld.Map:GetSize()
 	local min_x, min_z = map_width * 2, map_height * 2
 	if current_pos ~= tile_pos or(math.abs(x)<min_x and math.abs(z)<min_z) then
-		print("有转移位置emmmmm")
+		-- print("有转移位置emmmmm")
 		if math.abs(x)<min_x and math.abs(z)<min_z then
 			x, y, z=TheWorld.components.getposition:GetPosition_old()()
 			tile_pos=Point(x,y,z)
-			print("是位置不对")
+			-- print("是位置不对")
 		end
 		inst:DoTaskInTime(1, TransformBasement, tile_pos - current_pos)
 	end

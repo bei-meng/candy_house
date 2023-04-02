@@ -314,7 +314,7 @@ function EntityScript:SetEventMute(event, muted)
 	if self.eventmuted == nil then
 		self.eventmuted = {}
 	end
-    print(event)
+    -- print(event)
 	self.eventmuted[event] = muted and true or nil
 end
 --事件监听共享--会同时分享给上一级

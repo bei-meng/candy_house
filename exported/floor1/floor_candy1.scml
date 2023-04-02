@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="b5">
+    <folder id="0" name="shell">
+        <file id="0" name="shell/shell.png" width="878" height="878" pivot_x="0.5" pivot_y="0.5"/>
+    </folder>
+    <folder id="1" name="road_grass">
+        <file id="0" name="road_grass/road_grass.png" width="878" height="878" pivot_x="0.5" pivot_y="0.5"/>
+    </folder>
+    <folder id="2" name="road">
+        <file id="0" name="road/road.png" width="878" height="878" pivot_x="0.5" pivot_y="0.5"/>
+    </folder>
+    <folder id="3" name="moon">
+        <file id="0" name="moon/moon.png" width="878" height="878" pivot_x="0.5" pivot_y="0.5"/>
+    </folder>
+    <folder id="4" name="marble">
+        <file id="0" name="marble/marble.png" width="878" height="878" pivot_x="0.5" pivot_y="0.5"/>
+    </folder>
+    <folder id="5" name="grassland">
+        <file id="0" name="grassland/grassland.png" width="878" height="878" pivot_x="0.5" pivot_y="0.5"/>
+    </folder>
+    <folder id="6" name="grass_road">
+        <file id="0" name="grass_road/grass_road.png" width="878" height="878" pivot_x="0.5" pivot_y="0.5"/>
+    </folder>
+    <folder id="7" name="board_road">
+        <file id="0" name="board_road/board_road.png" width="878" height="878" pivot_x="0.5" pivot_y="0.5"/>
+    </folder>
+    <entity id="0" name="shell">
+        <animation id="0" name="BUILD" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="shell" folder="0" file="0" abs_x="0" abs_y="0" abs_pivot_x="0.5" abs_pivot_y="0.5" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="shell">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" angle="0"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+    <entity id="1" name="road_grass">
+        <animation id="0" name="BUILD" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="road_grass" folder="1" file="0" abs_x="0" abs_y="0" abs_pivot_x="0.5" abs_pivot_y="0.5" abs_angle="360" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="road_grass">
+                <key id="0" spin="0">
+                    <object folder="1" file="0"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+    <entity id="2" name="road">
+        <animation id="0" name="BUILD" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="road" folder="2" file="0" abs_x="0" abs_y="0" abs_pivot_x="0.5" abs_pivot_y="0.5" abs_angle="360" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="road">
+                <key id="0" spin="0">
+                    <object folder="2" file="0"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+    <entity id="3" name="moon">
+        <animation id="0" name="BUILD" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="moon" folder="3" file="0" abs_x="0" abs_y="0" abs_pivot_x="0.5" abs_pivot_y="0.5" abs_angle="360" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="moon">
+                <key id="0" spin="0">
+                    <object folder="3" file="0"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+    <entity id="4" name="marble">
+        <animation id="0" name="BUILD" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="marble" folder="4" file="0" abs_x="0" abs_y="0" abs_pivot_x="0.5" abs_pivot_y="0.5" abs_angle="360" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="marble">
+                <key id="0" spin="0">
+                    <object folder="4" file="0"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+    <entity id="5" name="grassland">
+        <animation id="0" name="BUILD" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="grassland" folder="5" file="0" abs_x="0" abs_y="0" abs_pivot_x="0.5" abs_pivot_y="0.5" abs_angle="360" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="grassland">
+                <key id="0" spin="0">
+                    <object folder="5" file="0"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+    <entity id="6" name="grass_road">
+        <animation id="0" name="BUILD" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="grass_road" folder="6" file="0" abs_x="0" abs_y="0" abs_pivot_x="0.5" abs_pivot_y="0.5" abs_angle="360" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="grass_road">
+                <key id="0" spin="0">
+                    <object folder="6" file="0"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+    <entity id="7" name="board_road">
+        <animation id="0" name="BUILD" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="board_road" folder="7" file="0" abs_x="0" abs_y="0" abs_pivot_x="0.5" abs_pivot_y="0.5" abs_angle="360" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="board_road">
+                <key id="0" spin="0">
+                    <object folder="7" file="0"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+</spriter_data>

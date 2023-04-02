@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="b5">
+    <folder id="0" name="ball">
+        <file id="0" name="ball/01.png" width="1024" height="1024" pivot_x="0.503801" pivot_y="0.264757"/>
+    </folder>
+    <folder id="1" name="crystal_ball">
+        <file id="0" name="crystal_ball/crystal_ball.png" width="256" height="256" pivot_x="0.484722" pivot_y="0.144087"/>
+    </folder>
+    <entity id="0" name="candy_ball">
+        <animation id="0" name="idle" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="01" folder="0" file="0" abs_x="-0.440529" abs_y="-0.440529" abs_pivot_x="0.503801" abs_pivot_y="0.264757" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="01">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-0.440529" y="-0.440529" angle="0"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="1" name="crystal_ball" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="crystal_ball" folder="1" file="0" abs_x="0" abs_y="0" abs_pivot_x="0.484722" abs_pivot_y="0.144087" abs_angle="360" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="crystal_ball">
+                <key id="0" spin="0">
+                    <object folder="1" file="0"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+</spriter_data>

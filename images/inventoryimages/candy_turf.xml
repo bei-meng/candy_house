@@ -1,0 +1,20 @@
+<Atlas>
+	<Texture filename="candy_turf.tex"/>
+	<Elements>
+		<Element name="grass.tex" u1="0.750000" u2="0.992647" v1="0.507353" v2="0.750000"/>
+		<Element name="ancient_moon.tex" u1="0.000000" u2="0.242647" v1="0.757353" v2="1.000000"/>
+		<Element name="road_grass.tex" u1="0.500000" u2="0.742647" v1="0.507353" v2="0.750000"/>
+		<Element name="road.tex" u1="0.000000" u2="0.242647" v1="0.507353" v2="0.750000"/>
+		<Element name="brich_grass.tex" u1="0.000000" u2="0.242647" v1="0.007353" v2="0.250000"/>
+		<Element name="shell.tex" u1="0.500000" u2="0.742647" v1="0.007353" v2="0.250000"/>
+		<Element name="grassland.tex" u1="0.500000" u2="0.742647" v1="0.757353" v2="1.000000"/>
+		<Element name="grass_road.tex" u1="0.250000" u2="0.492647" v1="0.757353" v2="1.000000"/>
+		<Element name="board_road.tex" u1="0.750000" u2="0.992647" v1="0.257353" v2="0.500000"/>
+		<Element name="marble.tex" u1="0.750000" u2="0.992647" v1="0.757353" v2="1.000000"/>
+		<Element name="moon.tex" u1="0.250000" u2="0.492647" v1="0.507353" v2="0.750000"/>
+		<Element name="brich_road.tex" u1="0.000000" u2="0.242647" v1="0.257353" v2="0.500000"/>
+		<Element name="cowhiar.tex" u1="0.500000" u2="0.742647" v1="0.257353" v2="0.500000"/>
+		<Element name="board.tex" u1="0.250000" u2="0.492647" v1="0.257353" v2="0.500000"/>
+		<Element name="brich.tex" u1="0.250000" u2="0.492647" v1="0.007353" v2="0.250000"/>
+	</Elements>
+</Atlas>

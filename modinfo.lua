@@ -7,7 +7,7 @@
 ]]
 name="糖果屋/Candy House"--mod的名字
 author="北甍"--mod作者
-version="1.1.2"--版本号
+version="1.1.3"--版本号
 description=[[
     建造属于你的糖果屋吧！糖果屋可以升级扩大面积。
     里面是永久的白天，不管外面是黑夜还是黄昏。
@@ -94,16 +94,16 @@ configuration_options={
         },
         default=true,--选项默认值，在选项面板点击reset，会把该选项的值设置为默认值
     },
-    {
-        name="builder",
-        label="建筑装饰/decorative architecture",
-        hover="糖果屋装饰建筑仅在糖果屋内可制作/Candy house decoration buildings can only be made in candy House",
-        options={
-            {description="是/yes",data=true},
-            {description="否/no",data=false},
-        },
-        default=true,--选项默认值，在选项面板点击reset，会把该选项的值设置为默认值
-    },
+    -- {
+    --     name="builder",
+    --     label="建筑装饰/decorative architecture",
+    --     hover="糖果屋装饰建筑仅在糖果屋内可制作/Candy house decoration buildings can only be made in candy House",
+    --     options={
+    --         {description="是/yes",data=true},
+    --         {description="否/no",data=false},
+    --     },
+    --     default=true,--选项默认值，在选项面板点击reset，会把该选项的值设置为默认值
+    -- },
     {
         name="water",
         label="降雨/the rain",

@@ -7,7 +7,7 @@ local function OnActivate(inst, doer)
         if doer.components.playercontroller ~= nil then
 			doer.components.playercontroller:EnableMapControls(false)
 		end
-		doer:AddTag("garden_member")
+		-- doer:AddTag("garden_member")
 		inst:PushEvent("unlockrecipe")
 		inst:PushEvent("builditem")
 		local bufferedbuilds = inst.player_classified and inst.player_classified.bufferedbuilds
