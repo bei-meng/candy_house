@@ -43,6 +43,8 @@ TUNING.FARM_BM=GetModConfigData("farm")--农场
 -- TUNING.CLOUD_BM=GetModConfigData("cloud")--云雾环绕
 TUNING.HAMER_BM=GetModConfigData("hamer")--锤子
 TUNING.BACK_BM=GetModConfigData("background")--是否显示背景
+TUNING.NO_WEED=GetModConfigData("wedd_clear")--杂草去除
+TUNING.NO_PERISH=GetModConfigData("no_perishable")--大作物不腐烂
 modimport("main/small_garden")
 modimport("main/garden_tech")
 modimport("scripts/modframework")
@@ -82,3 +84,46 @@ end
 AddPrefabPostInit("cave_entrance_open", function (inst)
 	inst:AddTag("cave_entrance_open")
 end)
+
+
+
+
+if TUNING.NO_WEED then
+	--针对杂草的消去效果
+	local WEED_DEFS = require("prefabs/weed_defs").WEED_DEFS
+	for k, v in pairs(WEED_DEFS) do
+		if not v.data_only then --allow mods to skip our prefab constructor.
+			AddPrefabPostInit(v.prefab, function (inst)
+				if TheWorld.ismastersim then
+					inst:ListenForEvent("on_planted", function (inst,data)
+						if inst:IsInGarden() then
+							if data.in_soil then
+								SpawnAt("farm_soil",inst:GetPosition())
+							end
+							inst:Remove()
+						end
+					end)
+				end
+			end)
+		end
+	end
+end
+
+
+
+if TUNING.NO_PERISH then
+	--针对糖果屋内部的大作物不腐烂
+	AddComponentPostInit("perishable",function (self)
+		local old_fn=self.StartPerishing
+		self.StartPerishing=function (self)
+			old_fn(self)
+			local inst= self.inst
+			if inst and inst:IsInGarden() and inst:HasTag("heavy") and inst:HasTag("oversized_veggie") then
+				inst:ListenForEvent("perishchange",function (inst)
+					inst.components.perishable:StopPerishing()
+				end)
+				inst.components.perishable:StopPerishing()
+			end
+		end
+	end)
+end

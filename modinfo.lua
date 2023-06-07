@@ -66,6 +66,24 @@ configuration_options={
         },
         default=true
     },
+    {
+        name="wedd_clear",--选项标识
+        label="杂草去除/no weed",
+        options={
+            {description="是/yes",data=true},
+            {description="否/no",data=false},
+        },
+        default=true
+    },
+    {
+        name="no_perishable",--选项标识
+        label="大作物不腐烂/large plant no perishable",
+        options={
+            {description="是/yes",data=true},
+            {description="否/no",data=false},
+        },
+        default=true
+    },
     AddTitle("糖果屋基础设置/Candy house basic Settings"),
     {
         name="background",
