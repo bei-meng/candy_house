@@ -7,7 +7,7 @@
 ]]
 name="糖果屋/Candy House"--mod的名字
 author="码师：北甍/画师：Backpfeifengesicht "--mod作者
-version="1.0.5"--版本号
+version="1.0.6"--版本号
 description=[[
     建造一个小世界。
     对旧版糖果屋的修复（终于有人画画啦！）
@@ -23,6 +23,8 @@ description=[[
     房间内部冬暖夏凉
 
     可以直接使用锄头挖坑（禁止耕地机）
+
+    1.0.6 可选杂草不泛滥，可选大作物不腐烂
 ]]
 --mod的介绍
 
