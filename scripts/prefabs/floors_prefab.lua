@@ -13,7 +13,7 @@ local function make_upgrade(name)
 	
 		inst.OnBuiltFn = function(inst)
             local x, y, z = inst.Transform:GetWorldPosition()
-			local garden = TheSim:FindEntities(x, 0, z, 8, { "garden_part", "garden_tile" })[1]
+			local garden = TheSim:FindEntities(x, 0, z, 20, { "garden_part", "garden_tile" })[1]
 			if garden ~= nil then
 				garden:PushEvent("onupgrade", {source = inst.prefab})
 			end
