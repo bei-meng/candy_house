@@ -7,11 +7,22 @@ local Recipetabs = {
 -- filter_def.recipes: !This is not supported! Create the filter and then pass in the filter to AddRecipe2() or AddRecipeToFilter()
 -- AddRecipeFilter = function(filter_def, index)
 -- AddPrototyperDef = function(prototyper_prefab, data)
+    -- {--一些装饰物品
+    --     filter_def={
+    --         name = "PLACER_PREFAB",
+    --         atlas = "images/ui/placer_prefab.xml",
+    --         image = "placer_prefab.tex",
+    --         image_size=62,
+    --         custom_pos=nil,
+    --         recipes=nil,
+    --     },
+    --     -- sort = 23,
+    -- },
     {--一些装饰物品
         filter_def={
-            name = "PLACER_PREFAB",
-            atlas = "images/ui/placer_prefab.xml",
-            image = "placer_prefab.tex",
+            name = "CANDY_HOUSE",
+            atlas = "images/ui/candyhouse.xml",
+            image = "candyhouse.tex",
             image_size=64,
             custom_pos=nil,
             recipes=nil,
@@ -20,6 +31,16 @@ local Recipetabs = {
     },
     {--糖果屋改造的
         prototyper_prefab="garden_exit",
+        data={
+            icon_atlas = "images/ui/candyhouse.xml",
+            icon_image = "candyhouse.tex",
+            is_crafting_station = true,
+            -- action_str = "CRITTERS",
+            -- filter_text = STRINGS.UI.CRAFTING_STATION_FILTERS.GARDEN_EXIT,
+        }
+    },
+    {--糖果屋改造的
+        prototyper_prefab="garden_exit1",
         data={
             icon_atlas = "images/ui/candyhouse.xml",
             icon_image = "candyhouse.tex",

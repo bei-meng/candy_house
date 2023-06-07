@@ -64,9 +64,9 @@ local function Maker_wall(name,bank,build)
             return inst
         end
         inst:DoTaskInTime(0, ResolveAndPlayWallAnim)
-        if TUNING.LIGHT_BM then
-            inst.AnimState:SetBloomEffectHandle("shaders/anim.ksh")
-        end
+        -- if TUNING.LIGHT_BM then
+        --     inst.AnimState:SetBloomEffectHandle("shaders/anim.ksh")
+        -- end
         inst.persists = false
         return inst
     end

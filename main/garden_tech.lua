@@ -11,7 +11,6 @@ TechTree.Create = function(t)
 	return t
 end
 -------------------------------------------------------------------------------
-------------------------------------[[新娘科技]]
 table.insert(TechTree.AVAILABLE_TECH, "GARDEN_TECH")	--其实就是加个自己的科技树名称
 table.insert(TechTree.BONUS_TECH, "GARDEN_TECH")	--有奖励的科技树
 _G.TECH.NONE.GARDEN_TECH = 0

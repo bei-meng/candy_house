@@ -1,3 +1,4 @@
+local turf=require"def/floor_def"
 local function make_upgrade(name)
 	local function fn()
 		local inst = CreateEntity()
@@ -12,11 +13,9 @@ local function make_upgrade(name)
 	
 		inst.OnBuiltFn = function(inst)
             local x, y, z = inst.Transform:GetWorldPosition()
-			local garden = TheSim:FindEntities(x, 0, z, 84, { "garden_part", "garden_tile" })[1]
+			local garden = TheSim:FindEntities(x, 0, z, 8, { "garden_part", "garden_tile" })[1]
 			if garden ~= nil then
-				local data={}
-                data.source = inst.prefab
-				garden:PushEvent("onupgrade", data)
+				garden:PushEvent("onupgrade", {source = inst.prefab})
 			end
 			inst:Remove()
 		end
@@ -25,9 +24,14 @@ local function make_upgrade(name)
 	return Prefab(name, fn)
 end
 
-local items={"rooo_turf","wddd_turf","caaa_turf","gsss_turf","brrr_turf","wall1","wall2","wall3","wall4","wall5","wall6","addlevel"}
+local items={"wall1","wall2","wall3","wall4","wall5","wall6","addlevel"}
 local upgrades = {}
 for _, name in pairs(items) do
 	table.insert(upgrades, make_upgrade(name))
+end
+--地皮
+for k,v in pairs(turf) do
+	table.insert(upgrades, make_upgrade(k.."_turf"))--地皮
+	table.insert(upgrades, make_upgrade(k.."_back"))--背景
 end
 return unpack(upgrades)

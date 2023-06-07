@@ -24,15 +24,28 @@ function RoomManager:RemoveSyntTiles()
         self._synttiles =nil
 	end
 end
+
+local Rectangle=function (grid,step)
+	local _x, _z = grid:match("(%d+)x(%d+)")
+	local t = {}
+	local offset = {x = _x / 2, z = _z / 2}
+	
+	-- print("offsetx为",offset.x,offset.z)
+	-- print("信息为",0, _x, step,0, _z, step)
+	for x = 0, _x, step do
+		for z = 0, _z, step do
+			table.insert(t, { x = x - offset.x, z = z - offset.z })
+		end
+	end
+	return t
+end
 --增加26X26的瓷砖
 --用来限制玩家位置的--需要是外墙减6
 function RoomManager:AddSyntTiles()
 	local str=tostring((self.room.level_bm:value())*4-2).."x"..tostring((self.room.level_bm:value())*4-2)
-	self._synttiles = BM.Rectangle(str, true, true, 4)
+	self._synttiles = BM.Rectangle(str,true,true,4)
 	local x, y, z = self.room.Transform:GetWorldPosition()
-	print("房间坐标为",x,y,z)
 	for k,v in pairs(self._synttiles) do
-		print(k,"坐标为",x + v.x, 0, z + v.z)
 		BM.Map.AddSyntTile(x + v.x, 0, z + v.z)
 	end
     --房间拆除时进行删除
@@ -40,7 +53,7 @@ function RoomManager:AddSyntTiles()
         self:RemoveSyntTiles()
     end)
 end
--------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
 ---------------------------------[[ 仅仅主机端执行的 ]]--------------------------------------
 -------------------------------------------------------------------------------------------
 --删除所有墙
@@ -202,7 +215,7 @@ function RoomManager:onupgrade(inst,data,type)
 			inst.components.lootdropper:SpawnLootPrefab("boards")
 			inst.components.lootdropper:SpawnLootPrefab("boards")
 			for k,_ in pairs(inst.allplayers) do
-				if k.components and k.components.talker then
+				if k and k:IsValid() and k.components and k.components.talker then
 					k.components.talker:Say("面积已经达到上限")
 					return
 				end
@@ -228,7 +241,7 @@ local prefab_list={
 	deciduoustree=40,--桦木树
 	evergreen=30,--常青树
 	evergreen_sparse=20,--常青树--变异
-	flower=20,--花
+	-- flower=20,--花
 	rock1=10,--普通岩石
 	rock_flintless=10,--全是石头
 	blue_mushroom=10,
@@ -240,14 +253,28 @@ function RoomManager:Spawn(x, y, z)
 	local item=nil
 	for k,v in pairs(prefab_list)do
 		for i=0,v*2 do
-			local newx,newz=math.random(x-76,x+76),math.random(z-76,z+76)
-			item=SpawnPrefab(k)
-			if item then
-				item.Transform:SetPosition(newx,0,newz)
+			if TUNING.BACK_BM then
+				local newx,newz=math.random(x-76,x+76),math.random(z-76,z+76)
+				item=SpawnPrefab(k)
+				if item then
+					item.Transform:SetPosition(newx,0,newz)
+				end
+			else
+				local newx,newz=math.random(x-44,x+44),math.random(z-44,z+44)
+				item=SpawnPrefab(k)
+				if item then
+					item.Transform:SetPosition(newx,0,newz)
+				end
 			end
 		end
 	end
-
+	for i=0,30 do
+		local newx,newz=math.random(x-44,x+44),math.random(z-44,z+44)
+		item=SpawnPrefab("flower")
+		if item then
+			item.Transform:SetPosition(newx,0,newz)
+		end
+	end
 	item=SpawnPrefab("candy_tree")
 	if item then
 		item.Transform:SetPosition(x+math.random(-14,14),0,z+math.random(-8,14))

@@ -3,7 +3,9 @@ local function OnTick(inst, target)
     if target.components.health ~= nil and
         not target.components.health:IsDead() and
         not target:HasTag("playerghost") then
-        target.components.sanity:DoDelta(tick_value, nil, "candy_cotton")
+        if target.components.sanity then
+            target.components.sanity:DoDelta(tick_value, nil, "candy_cotton")
+        end
     else
         inst.components.debuff:Stop()
     end

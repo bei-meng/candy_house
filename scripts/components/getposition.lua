@@ -1,10 +1,12 @@
 local Getposition = Class(function(self, inst)
     self.inst = inst;
-    self.maxnum=63
+    self.maxnum=56
     self.num=0
-    self.pos_x=-1440
+    self.pos_x=-1400
     self.num_old=0
-    self.pos_x_old=-1440
+    self.pos_x_old=-1400
+    self.delta=200--180
+    --房子太大了
 end)
 
 function Getposition:GetPosition()
@@ -15,17 +17,17 @@ function Getposition:GetPosition()
     local num=self.num%4
     local x=self.pos_x
     if num==0 then
-        return math.floor((x)/4)*4+2, 0, math.floor((-1440)/4)*4+2
-        -- return TheWorld.Map:GetTileCenterPoint(x, 0, -1440)
+        return math.floor((x)/4)*4+2, 0, math.floor((-1400)/4)*4+2
+        -- return TheWorld.Map:GetTileCenterPoint(x, 0, -1400)
     elseif num==1 then
-        return math.floor(1440/4)*4+2, 0, math.floor(x/4)*4+2
-        -- return TheWorld.Map:GetTileCenterPoint(1440, 0, x)
+        return math.floor(1400/4)*4+2, 0, math.floor(x/4)*4+2
+        -- return TheWorld.Map:GetTileCenterPoint(1400, 0, x)
     elseif num==2 then
-        return math.floor(-x/4)*4+2, 0, math.floor(1440/4)*4+2
-        -- return TheWorld.Map:GetTileCenterPoint(-x, 0, 1440)
+        return math.floor(-x/4)*4+2, 0, math.floor(1400/4)*4+2
+        -- return TheWorld.Map:GetTileCenterPoint(-x, 0, 1400)
     elseif num==3 then
-        return math.floor(-1440/4)*4+2, 0, math.floor(-x/4)*4+2
-        -- return TheWorld.Map:GetTileCenterPoint(-1440, 0, -x)
+        return math.floor(-1400/4)*4+2, 0, math.floor(-x/4)*4+2
+        -- return TheWorld.Map:GetTileCenterPoint(-1400, 0, -x)
     end
 end
 
@@ -38,20 +40,20 @@ function Getposition:GetPosition_old()
     self.num_old=self.num_old+1
     local x=self.pos_x_old
     if self.num_old%4==0 then
-        self.pos_x_old=self.pos_x_old+180
+        self.pos_x_old=self.pos_x_old+self.delta
     end
     if num==0 then
-        return math.floor((x)/4)*4+2, 0, math.floor((-1440)/4)*4+2
-        -- return TheWorld.Map:GetTileCenterPoint(x, 0, -1440)
+        return math.floor((x)/4)*4+2, 0, math.floor((-1400)/4)*4+2
+        -- return TheWorld.Map:GetTileCenterPoint(x, 0, -1400)
     elseif num==1 then
-        return math.floor(1440/4)*4+2, 0, math.floor(x/4)*4+2
-        -- return TheWorld.Map:GetTileCenterPoint(1440, 0, x)
+        return math.floor(1400/4)*4+2, 0, math.floor(x/4)*4+2
+        -- return TheWorld.Map:GetTileCenterPoint(1400, 0, x)
     elseif num==2 then
-        return math.floor(-x/4)*4+2, 0, math.floor(1440/4)*4+2
-        -- return TheWorld.Map:GetTileCenterPoint(-x, 0, 1440)
+        return math.floor(-x/4)*4+2, 0, math.floor(1400/4)*4+2
+        -- return TheWorld.Map:GetTileCenterPoint(-x, 0, 1400)
     elseif num==3 then
-        return math.floor(-1440/4)*4+2, 0, math.floor(-x/4)*4+2
-        -- return TheWorld.Map:GetTileCenterPoint(-1440, 0, -x)
+        return math.floor(-1400/4)*4+2, 0, math.floor(-x/4)*4+2
+        -- return TheWorld.Map:GetTileCenterPoint(-1400, 0, -x)
     end
 end
 
@@ -62,7 +64,7 @@ end
 function Getposition:CreateHome()
     self.num=self.num+1
     if self.num%4==0 then
-        self.pos_x=self.pos_x+180
+        self.pos_x=self.pos_x+self.delta
     end
 end
 function Getposition:OnLoad(data)

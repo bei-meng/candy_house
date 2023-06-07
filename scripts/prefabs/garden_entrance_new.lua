@@ -99,7 +99,7 @@ local function entrance()
 	inst:AddTag("structure")
 	inst:AddTag("garden_part")
 	inst:AddTag("garden_in")
-	inst:AddTag("shelter")
+	-- inst:AddTag("shelter")
 	inst:AddTag("nonpackable")
 	inst:AddTag("antlion_sinkhole_blocker")
 

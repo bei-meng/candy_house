@@ -29,12 +29,40 @@ BM={
 			root["__"..key] = nil
 		end
 	end,
+    --划分矩形地区--可选是否仅仅边界
+    Rectangle=function (grid, centered, getall, step)
+        --grid为输入的字符串10X10
+        --centered
+        --getall为得到所有点的位置，或者仅仅周围建墙的位置
+        local _x, _z = grid:match("(%d+)x(%d+)")
+        _x, _z=_x-1,_z-1
+        local data = {_x,_z}--存储边界，用来建墙
+        table.insert(data, 0)--把0插入data
+        --0->1，_x->2,_z->3
+        data = table.invert(data)--反转--k,v-----------v,k
+        local t = {}
+        step=step or 1
+
+        local offset = {x = 0, z = 0}
+        if centered then
+            offset.x = (_x+1) / 2
+            offset.z = (_z+1) / 2
+        end
+        for x = 0, _x, step do
+            for z = 0, _z, step do
+                if getall or data[x] or data[z] then--得到所有瓷砖或者得到建墙的位置
+                    table.insert(t, { x = x - offset.x, z = z - offset.z })
+                end
+            end
+        end
+        return t
+    end,
 }
 rawset(GLOBAL, "BM", BM)
 BM = GLOBAL.BM
 -----------------------------------------------------------------------------------------------一些常量
 local GARDEN_TILES = {}                 --花园的
-local MY_GARDEN_TILES = {}              --自己的花园地皮
+local NU_GARDEN_TILES = {}              --用于营养物质的
 TUNING.GARDEN =
 {
 	SANITYAURA = GetModConfigData("sanity") or -5,--降sanity的作用
@@ -167,15 +195,23 @@ end
 ---------------------------------------------------------------------------------------------------
 require "components/map"
 --用来标记花园的瓷砖
-local function GetInteriorTileKey(...)
-    local x,z = TheWorld.Map:GetTileCoordsAtPoint(...)--获取点上的平铺坐标
+local function GetInteriorTileKey(x,y,z)
+    -- local x,z = TheWorld.Map:GetTileCoordsAtPoint(x,y,z)--获取点上的平铺坐标
+    x,y,z=math.floor((x)/4), 0, math.floor((z)/4)
 	return x.."_"..z
 end
 
+local function GetInteriorTileKey_floor(x,y,z)
+    x,z = TheWorld.Map:GetTileCoordsAtPoint(x,y,z)--获取点上的平铺坐标
+	return x.."_"..z
+end
 Map.IsGardenAtPoint = function (self,x, y, z)
 	return GARDEN_TILES[GetInteriorTileKey(x, y, z)]
 end
 
+Map.IsGardenAtPoint_floor = function (self,x, y, z)--用于种地
+	return NU_GARDEN_TILES[GetInteriorTileKey_floor(x, y, z)]
+end
 --------------------------------------------------------------是不是可通行的点
 local function IsPassableAtPoint(x, y, z)
     if type(x)~="number"then
@@ -273,18 +309,19 @@ BM.Map={}
 BM.Map.AddSyntTile=function(x, y, z, source)
 	if TheWorld.Map:GetTileAtPoint(x, y, z) == GROUND.INVALID then
 		GARDEN_TILES[GetInteriorTileKey(x, y, z)] = source or true
+        NU_GARDEN_TILES[GetInteriorTileKey_floor(x, y, z)] = source or true
 	end
 end
 --记录哪里是对应的小房子的地皮
 BM.Map.AddMySyntTile=function(x, y, z, source)
 	if TheWorld.Map:GetTileAtPoint(x, y, z) == GROUND.INVALID then
-		MY_GARDEN_TILES[GetInteriorTileKey(x, y, z)] = source or true
+		NU_GARDEN_TILES[GetInteriorTileKey(x, y, z)] = source or true
 	end
 end
 --清除对应的地皮
 BM.Map.RemoveSyntTile=function(...)
 	GARDEN_TILES[GetInteriorTileKey(...)] = nil
-	MY_GARDEN_TILES[GetInteriorTileKey(...)] = nil
+	NU_GARDEN_TILES[GetInteriorTileKey_floor(...)] = nil
 end
 BM.Map.ClearSyntTiles=function()GARDEN_TILES = {}end
 
@@ -403,7 +440,7 @@ AddComponentPostInit("farming_manager", function(self, inst)
 	end
 	local old_GetTileNutrients=self.GetTileNutrients
     self.GetTileNutrients=function(self,x,y,...)
-        if GARDEN_TILES[x.."_"..y] then
+        if NU_GARDEN_TILES[tostring(x).."_"..tostring(y)] then
             return 100,100,100
         end
         return old_GetTileNutrients(self,x,y,...)
@@ -502,18 +539,18 @@ AddComponentPostInit("areaaware", function(self)
 		return old(self,x, y, z,...)
 	end
 end)
---这个地方应该渺无鸟烟
-if TUNING.BIRD_BM then
-    AddComponentPostInit("birdspawner", function(self)
-        local old_GetSpawnPoint = self.GetSpawnPoint
-        function self:GetSpawnPoint(pt)
-            if TheWorld.Map:IsGardenAtPoint(pt:Get()) then
-                return nil
-            end
-            return  old_GetSpawnPoint(self,pt)
-        end
-    end)
-end
+-- --这个地方应该渺无鸟烟
+-- if TUNING.BIRD_BM then
+--     AddComponentPostInit("birdspawner", function(self)
+--         local old_GetSpawnPoint = self.GetSpawnPoint
+--         function self:GetSpawnPoint(pt)
+--             if TheWorld.Map:IsGardenAtPoint(pt:Get()) then
+--                 return nil
+--             end
+--             return  old_GetSpawnPoint(self,pt)
+--         end
+--     end)
+-- end
 --清除积雪覆盖效果
 local Old_MakeSnowCovered = GLOBAL.MakeSnowCovered
 local function ClearSnowCoveredPristine(inst)
@@ -780,7 +817,6 @@ AddAction(ENTER_GARDEN)
 
 AddComponentAction("SCENE", "teleporter" , function(inst, doer, actions, right)
     if inst:HasTag("garden_in") or inst:HasTag("garden_exit") then
-        -- print("标签",inst:HasTag("garden_exit"))
 		table.insert(actions, ACTIONS.ENTER_GARDEN)
     end
 end)
@@ -797,12 +833,16 @@ if TUNING.LANG_BM then
 		HAUNT = "作祟",--GARDEN_ENTRANCE
 		GARDEN_ENTRANCE = "进入",
 		GARDEN_EXIT = "离开",
+        GARDEN_ENTRANCE1 = "进入",
+		GARDEN_EXIT1 = "离开",
 	}
 else
 	GLOBAL.STRINGS.ACTIONS.ENTER_GARDEN = {
 		HAUNT = "haunt",
 		GARDEN_ENTRANCE = "Enter",
 		GARDEN_EXIT = "Exit",
+        GARDEN_ENTRANCE1 = "Enter",
+		GARDEN_EXIT1 = "Exit",
 	}
 end
 
@@ -891,8 +931,8 @@ AddStategraphState('wilson',
                 data.target.components.teleporter:RegisterTeleportee(inst)
             end
 			inst.AnimState:PlayAnimation("give_pst", false)
-			data.target.AnimState:SetDeltaTimeMultiplier(0.5)
 			data.target.AnimState:PlayAnimation("door_closing",false)
+            data.target.AnimState:PushAnimation("idle",false)
             local pos = data ~= nil and data.target and data.target:GetPosition() or nil
             if pos ~= nil then
                 inst:ForceFacePoint(pos:Get())
@@ -1295,3 +1335,56 @@ local function MakePerdNotGoHome(brain)
 end
 
 AddBrainPostInit("perdbrain", MakePerdNotGoHome)
+
+
+
+
+
+
+--水晶球回城动作
+local CANDY_RETURN = GLOBAL.Action({ priority=3, mount_valid = true,ghost_valid=true, encumbered_valid=true})
+CANDY_RETURN.id = "CANDY_RETURN"
+CANDY_RETURN.strfn = function(act)
+    if act.doer ~= nil and act.doer:HasTag("playerghost") then
+		return  "HAUNT"
+	end
+	return "CRYSTAL_BALL"
+end
+CANDY_RETURN.fn = function(act)
+    if act.doer ~= nil and act.doer.sg ~= nil then
+        if act.invobject ~= nil and act.invobject.components.teleporter ~= nil and act.invobject.components.teleporter:IsActive() then
+            act.invobject.components.teleporter:RegisterTeleportee(act.doer)
+            if act.invobject.components.teleporter:Activate(act.doer) then
+                act.invobject:Remove()
+                return true
+            end
+        end
+		return false,"NOTIME"
+    end
+end
+AddAction(CANDY_RETURN)
+
+AddComponentAction("INVENTORY", "teleporter" , function(inst, doer, actions, right)
+    if inst:HasTag("crystal_ball")then
+		table.insert(actions, ACTIONS.CANDY_RETURN)
+    end
+end)
+
+--动作句柄，对应的state
+AddStategraphActionHandler("wilson",GLOBAL.ActionHandler(GLOBAL.ACTIONS.CANDY_RETURN, "doshortaction"))
+AddStategraphActionHandler("wilson_client",GLOBAL.ActionHandler(GLOBAL.ACTIONS.CANDY_RETURN, "doshortaction"))
+--鬼魂的状态
+AddStategraphActionHandler("wilsonghost",GLOBAL.ActionHandler(GLOBAL.ACTIONS.CANDY_RETURN, "doshortaction"))
+AddStategraphActionHandler("wilsonghost_client",GLOBAL.ActionHandler(GLOBAL.ACTIONS.CANDY_RETURN, "doshortaction"))
+-- local L = "CHINESE"--MK_MOD_LANGUAGE_SETTING
+if TUNING.LANG_BM then
+	GLOBAL.STRINGS.ACTIONS.CANDY_RETURN = {
+		HAUNT = "传送",--GARDEN_ENTRANCE
+        CRYSTAL_BALL="传送",
+	}
+else
+	GLOBAL.STRINGS.ACTIONS.CANDY_RETURN = {
+		HAUNT = "transfer",
+        CRYSTAL_BALL="transfer",
+	}
+end

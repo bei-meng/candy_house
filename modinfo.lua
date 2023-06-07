@@ -6,31 +6,23 @@
 特殊的发布版本，加特殊后缀。hotfix - 紧急修复bug版本，beta - 内测版 ， dev - 开发版
 ]]
 name="糖果屋/Candy House"--mod的名字
-author="北甍"--mod作者
-version="1.1.3"--版本号
+author="码师：北甍/画师：Backpfeifengesicht "--mod作者
+version="1.0.5"--版本号
 description=[[
-    建造属于你的糖果屋吧！糖果屋可以升级扩大面积。
-    里面是永久的白天，不管外面是黑夜还是黄昏。
-    糖果屋里面的猪人，蝴蝶，蜜蜂，鸟笼里的鸟不会睡觉和回家
-    草，树枝，浆果，桦木树，蜂巢，会一直保持秋天的状态，
-    冬天时草树枝，浆果依旧生长，桦木树依旧茂盛，蜜蜂依旧工作。
+    建造一个小世界。
+    对旧版糖果屋的修复（终于有人画画啦！）
+    新增物品：
+    水晶球：玩家/鬼魂，任意世界地点传送回糖果屋
+    青红树：生长棉花果，掉落青红木（每隔一段时间概率掉落）
+            半径5地皮的防止自燃。
+    棉花果：可以吃，具有回san的buff，材料
+    水晶盒：5*5箱子，保鲜
+    石堆：重新封住洞口，远离蝙蝠！（只能建造在洞穴上）
+            注意，建造时点洞穴边缘即可
+    新增了一部分新的地皮和背景
+    房间内部冬暖夏凉
 
-    糖果屋地面可以直接使用园艺锄挖地来种东西
-
-    你可以制作寄居蟹奶奶的晾肉架和蜂巢，以及蘑菇，胡萝卜，池塘，空心树枝等等
-    以及各种生物巢穴和生物，来装饰你的家，甚至制作一个动物园。
-
-    同时，你可以改变糖果屋的地板和围墙装饰。
-    在模组页面可以设置糖果屋内部是否增加光辉渲染(童话氛围),
-    默认开启，如果你觉得太模糊，可以选择关掉
-
-    降雨和落鸟可以选择开启和关闭
-    可以选择糖果屋里面大作物的优待（减少最后的压力值或者直接必定大作物）
-    推荐减少压力值6或者8，刚好加上抚摸植物的快乐值和季节加成能变成大作物
-
-    糖果屋里面可以体验到各个年份的背景音乐，
-    默认冬季盛宴(最好听的hhh，狗头保命.jpg)
-    云雾环绕效果，仅仅在客户端生成云，对服务器无影响
+    可以直接使用锄头挖坑（禁止耕地机）
 ]]
 --mod的介绍
 
@@ -50,6 +42,7 @@ icon_atlas="modicon.xml" --剪裁mod图标图片的文件
 icon="modicon.tex" --mod的图标
 
 server_filter_tags={
+    "糖果屋"
 }--确定你的mod标签，人物，物品，pet宠物
 
 --配置选项
@@ -75,25 +68,35 @@ configuration_options={
     },
     AddTitle("糖果屋基础设置/Candy house basic Settings"),
     {
-        name="large",
-        label="大小改变",
-        hover="玩家靠近时是否改变大小/Whether to change size as the player approaches",
+        name="background",
+        label="显示背景/Display background",
+        -- hover="玩家靠近时是否改变大小/Whether to change size as the player approaches",
         options={
             {description="是/yes",data=true},
             {description="否/no",data=false},
         },
         default=true,--选项默认值，在选项面板点击reset，会把该选项的值设置为默认值
     },
-    {
-        name="light",
-        label="童话氛围/The fairy tale atmosphere",
-        hover="糖果屋内部是否增加渲染光辉/Whether the interior of candy house is added to render brilliance",
-        options={
-            {description="是/yes",data=true},
-            {description="否/no",data=false},
-        },
-        default=true,--选项默认值，在选项面板点击reset，会把该选项的值设置为默认值
-    },
+    -- {
+    --     name="large",
+    --     label="大小改变",
+    --     hover="玩家靠近时是否改变大小/Whether to change size as the player approaches",
+    --     options={
+    --         {description="是/yes",data=true},
+    --         {description="否/no",data=false},
+    --     },
+    --     default=true,--选项默认值，在选项面板点击reset，会把该选项的值设置为默认值
+    -- },
+    -- {
+    --     name="light",
+    --     label="童话氛围/The fairy tale atmosphere",
+    --     hover="糖果屋内部是否增加渲染光辉/Whether the interior of candy house is added to render brilliance",
+    --     options={
+    --         {description="是/yes",data=true},
+    --         {description="否/no",data=false},
+    --     },
+    --     default=false,--选项默认值，在选项面板点击reset，会把该选项的值设置为默认值
+    -- },
     -- {
     --     name="builder",
     --     label="建筑装饰/decorative architecture",
@@ -114,16 +117,16 @@ configuration_options={
         },
         default=true,--选项默认值，在选项面板点击reset，会把该选项的值设置为默认值
     },
-    {
-        name="bird",
-        label="落鸟/the bird",
-        -- hover="关闭和开启糖果屋内部的降雨效果/Turn on and off the rain effect inside the candy house",
-        options={
-            {description="关闭/off",data=true},
-            {description="开启/on",data=false},
-        },
-        default=true,--选项默认值，在选项面板点击reset，会把该选项的值设置为默认值
-    },
+    -- {
+    --     name="bird",
+    --     label="落鸟/the bird",
+    --     -- hover="关闭和开启糖果屋内部的降雨效果/Turn on and off the rain effect inside the candy house",
+    --     options={
+    --         {description="关闭/off",data=true},
+    --         {description="开启/on",data=false},
+    --     },
+    --     default=true,--选项默认值，在选项面板点击reset，会把该选项的值设置为默认值
+    -- },
     {
         name="farm",
         label="减少植物压力值/Reduce plant stress levels",
@@ -131,9 +134,9 @@ configuration_options={
         options={
             {description="100",data=100,hover="必定大作物/Large crops"},
             {description="12",data=12,hover="减少植物最后的压力值12/Reduces the final plant stress by 12"},
-            {description="10",data=12},
-            {description="8",data=12},
-            {description="6",data=12},
+            {description="10",data=10},
+            {description="8",data=8},
+            {description="6",data=6},
         },
         default=100,--选项默认值，在选项面板点击reset，会把该选项的值设置为默认值
     },
@@ -156,17 +159,17 @@ configuration_options={
         },
         default=-1,--选项默认值，在选项面板点击reset，会把该选项的值设置为默认值
     },
-    {--local music={"dontstarve/music/music_FE_WF","dontstarve/music/music_FE_yotg",
-    --"dontstarve/music/music_FE_yotc","dontstarve/music/music_FE_summerevent","yotb_2021/music/FE"}
-        name="cloud",
-        label="云雾环绕/House Cloud",
-        hover="云雾环绕/House Cloud",
-        options={
-            {description="关闭/off",data=false},
-            {description="开启/on",data=true},
-        },
-        default=true,--选项默认值，在选项面板点击reset，会把该选项的值设置为默认值
-    },
+    -- {--local music={"dontstarve/music/music_FE_WF","dontstarve/music/music_FE_yotg",
+    -- --"dontstarve/music/music_FE_yotc","dontstarve/music/music_FE_summerevent","yotb_2021/music/FE"}
+    --     name="cloud",
+    --     label="云雾环绕/House Cloud",
+    --     hover="云雾环绕/House Cloud",
+    --     options={
+    --         {description="关闭/off",data=false},
+    --         {description="开启/on",data=true},
+    --     },
+    --     default=true,--选项默认值，在选项面板点击reset，会把该选项的值设置为默认值
+    -- },
     {--local music={"dontstarve/music/music_FE_WF","dontstarve/music/music_FE_yotg",
     --"dontstarve/music/music_FE_yotc","dontstarve/music/music_FE_summerevent","yotb_2021/music/FE"}
         name="hamer",

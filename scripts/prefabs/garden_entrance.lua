@@ -7,20 +7,18 @@ local function OnActivate(inst, doer)
         if doer.components.playercontroller ~= nil then
 			doer.components.playercontroller:EnableMapControls(false)
 		end
-		-- doer:AddTag("garden_member")
-		inst:PushEvent("unlockrecipe")
-		inst:PushEvent("builditem")
-		local bufferedbuilds = inst.player_classified and inst.player_classified.bufferedbuilds
-		if bufferedbuilds ~= nil then
-			for k,v in pairs(bufferedbuilds) do
-				local val = v:value()
-				v:set_local(val)
-				v:set(val)
-				break
-			end
-		end
+		-- inst:PushEvent("unlockrecipe")
+		-- inst:PushEvent("builditem")
+		-- local bufferedbuilds = inst.player_classified and inst.player_classified.bufferedbuilds
+		-- if bufferedbuilds ~= nil then
+		-- 	for k,v in pairs(bufferedbuilds) do
+		-- 		local val = v:value()
+		-- 		v:set_local(val)
+		-- 		v:set(val)
+		-- 		break
+		-- 	end
+		-- end
 	else
-		-- inst.SoundEmitter:PlaySound("dontstarve/cave/rope_up")
 	end
 end
 local function OnActivateByOther(inst, source, doer)
@@ -37,69 +35,10 @@ end
 local function PlayTravelSound(inst, doer)
 	inst.SoundEmitter:PlaySound("dontstarve/cave/rope_down")
 end
-local function FindValidInteriorPosition()
-	-- for x=-1440,1440,180 do
-	-- 	for z=-1440,1440,2880 do
-	-- 		if #TheSim:FindEntities(x, 0, z, 20, { "garden_tile" }) == 0 then
-	-- 			return TheWorld.Map:GetTileCenterPoint(x, 0, z)
-	-- 		elseif #TheSim:FindEntities(z, 0, x, 20, { "garden_tile" }) == 0 then
-	-- 			return TheWorld.Map:GetTileCenterPoint(z, 0, x)
-	-- 		end
-	-- 	end
-	-- end
-	-- for x=-1440,1440,180 do
-	-- 	for z=-1440,1440,2880 do
-	-- 		if #TheSim:FindEntities(z, 0, x, 20, { "garden_tile" }) == 0 then
-	-- 			return TheWorld.Map:GetTileCenterPoint(z, 0, x)
-	-- 		end
-	-- 	end
-	-- end
-	-- local tries = 0
-	-- local min_x, min_z =1440,1440
-	-- local max_x, max_z = min_x + 130, min_z + 130
-    -- -- print("最大最小位置",min_x,min_z,max_x,max_z)
-	-- while tries <= 50 do
-	-- 	tries = tries + 1
-	-- 	local pt1 = math.random(min_x, max_x) * (math.random() < 0.5 and 1 or -1) + 0.5
-	-- 	local pt2 = math.random(max_z) * (math.random() < 0.5 and 1 or -1) + 0.5
-	-- 	local x, z = pt1, pt2
-	-- 	if math.random() < 0.5 then
-	-- 		x, z = pt2, pt1
-	-- 	end
-	-- 	if #TheSim:FindEntities(x, 0, z, 168, { "garden_tile" }) == 0 then
-	-- 		return TheWorld.Map:GetTileCenterPoint(x, 0, z)
-	-- 	end
-	-- end
-end
---[[
-		local tries = 0
-	local map_width, map_height = TheWorld.Map:GetSize()
-	local min_x, min_z = map_width * 3 + 70, map_height * 3 + 70
-	local max_x, max_z = min_x + 130, min_z + 130
-    -- print("最大最小位置",min_x,min_z,max_x,max_z)
-	while tries <= 50 do
-		tries = tries + 1
-		local pt1 = math.random(min_x, max_x) * (math.random() < 0.5 and 1 or -1) + 0.5
-		local pt2 = math.random(max_z) * (math.random() < 0.5 and 1 or -1) + 0.5
-		local x, z = pt1, pt2
-		if math.random() < 0.5 then
-			x, z = pt2, pt1
-		end
-		if #TheSim:FindEntities(x, 0, z, 168, { "garden_tile" }) == 0 then
-			return TheWorld.Map:GetTileCenterPoint(x, 0, z)
-		end
-	end
-]]
-
 local function BuildGarden(inst,builder)
-	-- if inst.ok then return end
-	-- inst.ok=true
 	local garden = {}
-    -- garden.owner=builder.userid
 	garden.entrance = inst
 	local x, y, z = TheWorld.components.getposition:GetPosition()
-	-- print("当前位置",x,y,z)
-	-- print("位置为",x,y,z)
 	if x == nil then
 		TheNet:Announce("当前世界糖果屋数量过多，未能找到有效位置")
 		return
@@ -118,6 +57,7 @@ local function BuildGarden(inst,builder)
 
 	garden.core = SpawnPrefab("garden_floor")
 	garden.core.Transform:SetPosition(x, y, z)
+	garden.core.components.room_manager:Spawn(x, y, z)
 end
 local animdata =
 {
@@ -138,7 +78,6 @@ local function sethousetype(inst, bank, build)
 
     inst.AnimState:SetBuild(inst.build)
     inst.AnimState:SetBank(inst.bank)
-	-- inst.AnimState:SetScale(1.5,1.5)--设置大小
 end
 local function onhit(inst, worker)
     if not inst:HasTag("burnt") then
@@ -156,9 +95,22 @@ end
 local function onsave(inst,data)
     data.build = inst.build
     data.bank = inst.bank
+	-- if inst.components.teleporter and inst.components.teleporter:GetTarget() then
+    --     --跨世界传送
+    --     local x,y,z=inst.components.teleporter:GetTarget().Transform:GetWorldPosition()
+	-- 	data.migration_data={worldid = TheShard:GetShardId(), x = x, y = y, z = z}
+	-- end
 end
 local function onload(inst,data)
 	sethousetype(inst, data ~= nil and data.bank, data ~= nil and data.build)
+	-- if inst.components.teleporter and not inst.components.teleporter:GetTarget() then
+	-- 	local x,y,z=inst.migration_data.x,inst.migration_data.y,inst.migration_data.z
+	-- 	local target=TheSim:FindEntities(x,y,z,4, {"garden_in","garden_part"})
+	-- 	if #target>0 then
+	-- 		inst.components.teleporter:Target(target[1])
+	-- 		target[1].components.teleporter:Target(inst)
+	-- 	end
+	-- end
 end
 local function updatestate(inst)
 	if not TheWorld.state.isday then
@@ -232,11 +184,12 @@ local function entrance()
     inst.Light:SetRadius(2)
     inst.Light:Enable(false)
     inst.Light:SetColour(180/255, 195/255, 50/255)
+	-- inst.AnimState:SetBloomEffectHandle("shaders/anim.ksh")
 
 	inst:AddTag("structure")
 	inst:AddTag("garden_part")
 	inst:AddTag("garden_in")
-	inst:AddTag("shelter")
+	-- inst:AddTag("shelter")
 	inst:AddTag("nonpackable")
 	inst:AddTag("antlion_sinkhole_blocker")
 	-- inst:SetDeployExtraSpacing(2.5)

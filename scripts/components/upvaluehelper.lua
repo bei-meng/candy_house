@@ -1,4 +1,4 @@
-print("upvaluehelper loaded")
+-- print("upvaluehelper loaded")
 --调用示例 获取upvalue 谢谢风铃草大佬！
 --[[
 	local upvaluehelper = require "utils/upvaluehelp"
@@ -153,7 +153,7 @@ local function GetWorldStateWatchers(inst)
 					if allinstwatchers[var]==nil then
 						allinstwatchers[var]={}
 					end
-					print("天气",var,watcherfns,target.prefab)
+					-- print("天气",var,watcherfns,target.prefab)
 					allinstwatchers[var]["watcherfns"]= watcherfns--对应状态的观察者函数，以及目标的函数列表
 				end
 			end

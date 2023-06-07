@@ -20,89 +20,187 @@ local Recipes = {
                 return not TheWorld.Map:IsGardenAtPoint(pt:Get())
             end
         },
-        filters={"STRUCTURES"},
+        filters={"CANDY_HOUSE"},
+    },
+    {--入口
+        name="garden_entrance1",
+        ingredients={
+            Ingredient("cutstone", 5),
+            Ingredient("honey", 10),
+            Ingredient("boards", 5)
+        },
+        level=TECH.SCIENCE_TWO,
+        config={
+            placer="garden_entrance1_placer",
+            min_spacing=2,
+            atlas = "images/inventoryimages/candyhouse1.xml",
+            image="candyhouse1.tex",
+            testfn=function (pt,rot)
+                return not TheWorld.Map:IsGardenAtPoint(pt:Get())
+            end
+        },
+        filters={"CANDY_HOUSE"},
+    },
+    {--水晶盒
+        name="candy_ball",
+        ingredients={
+            Ingredient("candy_log", 2,"images/inventoryimages/candy_log.xml"),
+            Ingredient("boards", 3),
+            Ingredient("crystal_ball", 1,"images/inventoryimages/crystal_ball.xml")
+        },
+        level=TECH.SCIENCE_TWO,
+        config={
+            placer="candy_ball_placer",
+            min_spacing=2,
+            atlas = "images/inventoryimages/candy_ball.xml",
+            image="candy_ball.tex",
+            -- testfn=function (pt,rot)
+            --     return not TheWorld.Map:IsGardenAtPoint(pt:Get())
+            -- end
+        },
+        filters={"CANDY_HOUSE"},
+    },
+    {--青红树
+        name="candy_tree1",
+        ingredients={
+            -- Ingredient("palmcone_seed", 3),
+            Ingredient("pinecone",5),
+            Ingredient("acorn", 5),
+            Ingredient("honey", 5),
+        },
+        level=TECH.SCIENCE_TWO,
+        config={
+            placer="candy_tree_placer",
+            min_spacing=2,
+            atlas = "images/inventoryimages/candy_tree.xml",
+            image="candy_tree.tex",
+            -- testfn=function (pt,rot)
+            --     return not TheWorld.Map:IsGardenAtPoint(pt:Get())
+            -- end
+            product="candy_tree"
+        },
+        filters={"CANDY_HOUSE"},
+    },
+    {--封堵
+        name="candy_entrance",
+        ingredients={
+            Ingredient("flint", 10),
+            Ingredient("rocks", 10),
+            Ingredient("candy_log", 1,"images/inventoryimages/candy_log.xml")
+        },
+        level=TECH.SCIENCE_TWO,
+        config={
+            placer="candy_entrance_placer",
+            min_spacing=0,
+            atlas = "images/inventoryimages/candy_closed.xml",
+            image="candy_closed.tex",
+            testfn=function (pt,rot)
+                local x,y,z=TheWorld.Map:GetTileCenterPoint(pt:Get())
+                local ents = TheSim:FindEntities(x,y,z,4,{"cave_entrance_open"})
+                return #ents==1
+            end
+        },
+        filters={"CANDY_HOUSE"},
+    },
+    {--水晶球
+        name="crystal_ball",
+        ingredients={
+            Ingredient("honey", 3),
+            Ingredient("moonglass", 2),
+            Ingredient("candy_cotton", 1,"images/inventoryimages/candy_cotton.xml"),
+        },
+        level=TECH.GARDEN_ONE,
+        config={
+            atlas = "images/inventoryimages/crystal_ball.xml",
+            image="crystal_ball.tex",
+            nounlock=true,
+        },
+        filters={"CRAFTING_STATION"},
     },
     {--升级
         name="addlevel",
         ingredients={
-            Ingredient("cutstone", 10),
-            Ingredient("boards", 10),
+            Ingredient("cutstone", 5),
+            Ingredient("boards", 5),
+            Ingredient("candy_log", 3,"images/inventoryimages/candy_log.xml")
         },
         level=TECH.GARDEN_ONE,
         config={
             atlas = "images/inventoryimages/addlevel.xml",
             image="addlevel.tex",
             nounlock=true,
-            no_deconstruction=true,
+            testfn=function (pt,rot)
+                return TheWorld.Map:IsGardenAtPoint(pt:Get())
+            end
         },
         filters={"CRAFTING_STATION"},
     },
     ---------------------------------------各种地皮
-    {--卵石地板
-        name="rooo_turf",
-        ingredients={
-            Ingredient("turf_road", 10),
-            Ingredient("rocks", 10)
-        },
-        level=TECH.GARDEN_ONE,
-        config={
-            atlas = "images/inventoryimages2.xml",
-            image="turf_road.tex",
-        },
-        filters={"CRAFTING_STATION"},
-    },
-    {--木地板
-        name="wddd_turf",
-        ingredients={
-            Ingredient("turf_woodfloor", 10),
-            Ingredient("log", 10)
-        },
-        level=TECH.GARDEN_ONE,
-        config={
-            atlas = "images/inventoryimages2.xml",
-            image="turf_woodfloor.tex",
-        },
-        filters={"CRAFTING_STATION"},
-    },
-    {--地毯地板
-        name="caaa_turf",
-        ingredients={
-            Ingredient("turf_carpetfloor", 10),
-            Ingredient("beefalowool", 10)
-        },
-        level=TECH.GARDEN_ONE,
-        config={
-            atlas = "images/inventoryimages2.xml",
-            image="turf_carpetfloor.tex",
-        },
-        filters={"CRAFTING_STATION"},
-    },
-    {--草地皮
-        name="gsss_turf",
-        ingredients={
-            Ingredient("turf_grass", 10),
-            Ingredient("petals", 10)
-        },
-        level=TECH.GARDEN_ONE,
-        config={
-            atlas = "images/inventoryimages2.xml",
-            image="turf_grass.tex",
-        },
-        filters={"CRAFTING_STATION"},
-    },
-    {--桦树地皮
-        name="brrr_turf",
-        ingredients={
-            Ingredient("turf_deciduous", 10),
-            Ingredient("acorn", 10)
-        },
-        level=TECH.GARDEN_ONE,
-        config={
-            atlas = "images/inventoryimages2.xml",
-            image="turf_deciduous.tex",
-        },
-        filters={"CRAFTING_STATION"},
-    },
+    -- {--卵石地板
+    --     name="rooo_turf",
+    --     ingredients={
+    --         Ingredient("turf_road", 10),
+    --         Ingredient("rocks", 10)
+    --     },
+    --     level=TECH.GARDEN_ONE,
+    --     config={
+    --         atlas = "images/inventoryimages2.xml",
+    --         image="turf_road.tex",
+    --     },
+    --     filters={"CRAFTING_STATION"},
+    -- },
+    -- {--木地板
+    --     name="wddd_turf",
+    --     ingredients={
+    --         Ingredient("turf_woodfloor", 10),
+    --         Ingredient("log", 10)
+    --     },
+    --     level=TECH.GARDEN_ONE,
+    --     config={
+    --         atlas = "images/inventoryimages2.xml",
+    --         image="turf_woodfloor.tex",
+    --     },
+    --     filters={"CRAFTING_STATION"},
+    -- },
+    -- {--地毯地板
+    --     name="caaa_turf",
+    --     ingredients={
+    --         Ingredient("turf_carpetfloor", 10),
+    --         Ingredient("beefalowool", 10)
+    --     },
+    --     level=TECH.GARDEN_ONE,
+    --     config={
+    --         atlas = "images/inventoryimages2.xml",
+    --         image="turf_carpetfloor.tex",
+    --     },
+    --     filters={"CRAFTING_STATION"},
+    -- },
+    -- {--草地皮
+    --     name="gsss_turf",
+    --     ingredients={
+    --         Ingredient("turf_grass", 10),
+    --         Ingredient("petals", 10)
+    --     },
+    --     level=TECH.GARDEN_ONE,
+    --     config={
+    --         atlas = "images/inventoryimages2.xml",
+    --         image="turf_grass.tex",
+    --     },
+    --     filters={"CRAFTING_STATION"},
+    -- },
+    -- {--桦树地皮
+    --     name="brrr_turf",
+    --     ingredients={
+    --         Ingredient("turf_deciduous", 10),
+    --         Ingredient("acorn", 10)
+    --     },
+    --     level=TECH.GARDEN_ONE,
+    --     config={
+    --         atlas = "images/inventoryimages2.xml",
+    --         image="turf_deciduous.tex",
+    --     },
+    --     filters={"CRAFTING_STATION"},
+    -- },
     {--石墙
         name="wall1",
         ingredients={
@@ -113,6 +211,7 @@ local Recipes = {
         config={
             atlas = "images/inventoryimages2.xml",
             image="wall_stone_item.tex",
+            nounlock=true,
         },
         filters={"CRAFTING_STATION"},
     },
@@ -126,9 +225,10 @@ local Recipes = {
         config={
             atlas = "images/inventoryimages2.xml",
             image="wall_stone_ancientitem.tex",
+            nounlock=true,
         },
         filters={"CRAFTING_STATION"},
-    },
+    }, 
     {--铥矿墙
         name="wall3",
         ingredients={
@@ -139,6 +239,7 @@ local Recipes = {
         config={
             atlas = "images/inventoryimages2.xml",
             image="wall_ruins_item.tex",
+            nounlock=true,
         },
         filters={"CRAFTING_STATION"},
     },
@@ -152,6 +253,7 @@ local Recipes = {
         config={
             atlas = "images/inventoryimages2.xml",
             image="wall_ruins_thuleciteitem.tex",
+            nounlock=true,
         },
         filters={"CRAFTING_STATION"},
     },
@@ -165,6 +267,7 @@ local Recipes = {
         config={
             atlas = "images/inventoryimages2.xml",
             image="wall_moonrock_item.tex",
+            nounlock=true,
         },
         filters={"CRAFTING_STATION"},
     },
@@ -178,6 +281,7 @@ local Recipes = {
         config={
             atlas = "images/inventoryimages2.xml",
             image="wall_wood_item.tex",
+            nounlock=true,
         },
         filters={"CRAFTING_STATION"},
     },
@@ -198,7 +302,7 @@ local Recipes = {
             product="catcoonden",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--高鸟巢穴
         name="tallbirdnest",
@@ -214,7 +318,7 @@ local Recipes = {
             product="tallbirdnest",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--蜗牛巢穴
         name="test_build2",
@@ -230,7 +334,7 @@ local Recipes = {
             product="slurtlehole",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--杀人蜂巢穴
         name="test_build3",
@@ -247,7 +351,7 @@ local Recipes = {
             product="wasphive",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--蜂巢
         name="test_build4",
@@ -264,7 +368,7 @@ local Recipes = {
             product="beehive",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--猴子桶
         name="test_build5",
@@ -281,7 +385,7 @@ local Recipes = {
             product="monkeybarrel",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--池塘
         name="pond",
@@ -297,7 +401,7 @@ local Recipes = {
             -- product="pond",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--香蕉树
         name="cave_banana_tree",
@@ -313,7 +417,7 @@ local Recipes = {
             -- product="pond",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--大理石树
         name="marbletree",
@@ -328,7 +432,7 @@ local Recipes = {
             -- product="pond",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--大理石树
         name="meatrack_hermit",
@@ -344,7 +448,7 @@ local Recipes = {
             -- product="pond",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--老奶奶蜂巢
         name="beebox_hermit",
@@ -361,7 +465,7 @@ local Recipes = {
             -- product="pond",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--小牛
         name="test_build6",
@@ -378,7 +482,7 @@ local Recipes = {
             product="babybeefalo",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--电羊
         name="test_build7",
@@ -395,7 +499,7 @@ local Recipes = {
             product="lightninggoat",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--蝴蝶
         name="test_build8",
@@ -410,7 +514,7 @@ local Recipes = {
             product="butterfly",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--蘑菇
         name="red_mushroom",
@@ -425,7 +529,7 @@ local Recipes = {
             -- product="butterfly",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--蘑菇
         name="green_mushroom",
@@ -440,7 +544,7 @@ local Recipes = {
             -- product="butterfly",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--蘑菇
         name="blue_mushroom",
@@ -455,7 +559,7 @@ local Recipes = {
             -- product="butterfly",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--胡萝卜
         name="carrot_planted",
@@ -470,7 +574,7 @@ local Recipes = {
             -- product="butterfly",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--多肉
         name="succulent_plant",
@@ -485,7 +589,7 @@ local Recipes = {
             -- product="butterfly",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
     {--多肉
         name="dug_berrybush2",
@@ -500,9 +604,53 @@ local Recipes = {
             -- product="butterfly",
             min_spacing=1,
         },
-        filters={"PLACER_PREFAB"},
+        filters={"CANDY_HOUSE"},
     },
 }
+local turf=require"def/floor_def"
+for k,v in pairs(turf) do
+    ---------------------------------------------------------------主地皮
+    --配方材料
+    local ingredients_tmp={}
+    for name,num in pairs(v.materials)do
+        table.insert(ingredients_tmp,Ingredient(name,num))
+    end
+    --配方
+    table.insert(Recipes,{
+        name=k.."_turf",
+        ingredients=ingredients_tmp,
+        level=TECH.GARDEN_ONE,
+        config={
+            atlas = "images/inventoryimages/candy_turf.xml",
+            image=k..".tex",
+            nounlock=true,
+        },
+        filters={"CRAFTING_STATION"},
+    })
+end
+if TUNING.BACK_BM then
+    for k,v in pairs(turf) do
+        ---------------------------------------------------------------背景
+        --配方材料
+        local ingredients_tmp={}
+        ingredients_tmp={}
+        for name,num in pairs(v.materials)do
+            table.insert(ingredients_tmp,Ingredient(name,num/2))
+        end
+        --配方
+        table.insert(Recipes,{
+            name=k.."_back",
+            ingredients=ingredients_tmp,
+            level=TECH.GARDEN_ONE,
+            config={
+                atlas = "images/inventoryimages/candy_turf.xml",
+                image=k..".tex",
+                nounlock=true,
+            },
+            filters={"CRAFTING_STATION"},
+        })
+    end
+end
 
 local IngredientValues = {
     -- {

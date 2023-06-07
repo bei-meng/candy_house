@@ -45,18 +45,6 @@ local function OnActivate(inst, doer)
         if doer.components.playercontroller ~= nil then
 			doer.components.playercontroller:EnableMapControls(true)
 		end
-		-- doer:RemoveTag("garden_member")
-		inst:PushEvent("unlockrecipe")
-		inst:PushEvent("builditem")
-		local bufferedbuilds = inst.player_classified and inst.player_classified.bufferedbuilds
-		if bufferedbuilds ~= nil then
-			for k,v in pairs(bufferedbuilds) do
-				local val = v:value()
-				v:set_local(val)
-				v:set(val)
-				break
-			end
-		end
 	else
 		-- inst.SoundEmitter:PlaySound("dontstarve/cave/rope_up")
 	end

@@ -1,4 +1,5 @@
-return MakePlacer("catcoonden_placer","catcoon_den","catcoon_den","idle"),                  --中空树桩
+return
+MakePlacer("catcoonden_placer","catcoon_den","catcoon_den","idle"),                         --中空树桩
 MakePlacer("tallbirdnest_placer","egg","tallbird_egg","eggnest"),                           --高脚鸟巢穴
 MakePlacer("slurtlehole_placer","slurtle_mound","slurtle_mound","idle"),                    --蛞蝓鬼巢穴
 MakePlacer("wasphive_placer","wasphive","wasphive","cocoon_small"),                         --杀人蜂巢穴
@@ -14,6 +15,3 @@ MakePlacer("green_mushroom_placer","mushrooms","mushrooms","green"),            
 MakePlacer("blue_mushroom_placer","mushrooms","mushrooms","blue"),                          --红蘑菇
 MakePlacer("carrot_planted_placer","carrot","carrot","planted"),                            --胡萝卜
 MakePlacer("succulent_plant_placer","succulent","succulent","idle")                        --多肉植物
-
---succulent_plant
---carrot_planted	
